@@ -3,12 +3,18 @@ pragma solidity ^0.8.0;
 
 contract InspChain {
     address public admin;
-    address public creator;
+    address public inspector;
     string public inspectionType;
     string public inspectionDetails;
+    uint256 public inspectionTimestamp; // New state variable for timestamp
+    string public inspectionStatusMessage; // New state variable for status message
     bool public approved;
 
-    event InspectionSubmitted(address indexed submittedBy, string details);
+    event InspectionSubmitted(
+        address indexed submittedBy,
+        string statusMessage,
+        string details
+    );
     event InspectionApproved(address indexed approvedBy);
 
     modifier onlyAdmin() {
@@ -17,21 +23,25 @@ contract InspChain {
     }
 
     modifier onlyInspector() {
-        require(msg.sender == creator, "Not inspector");
+        require(msg.sender == inspector, "Not inspector");
         _;
     }
 
-    constructor(address _admin, address _creator, string memory _inspectionType) {
-        require(_admin != address(0) && _creator != address(0), "Invalid address");
+    constructor(address _admin, address _inspector, string memory _inspectionType) {
+        require(_admin != address(0) && _inspector != address(0), "Invalid address");
         admin = _admin;
-        creator = _creator;
+        inspector = _inspector;
         inspectionType = _inspectionType;
         approved = false;
     }
 
-    function submitInspection(string memory details) external onlyInspector {
+    function submitInspection(
+        string memory statusMessage,
+        string memory details
+    ) external onlyInspector {
+        inspectionStatusMessage = statusMessage;
         inspectionDetails = details;
-        emit InspectionSubmitted(msg.sender, details);
+        emit InspectionSubmitted(msg.sender, statusMessage, details);
     }
 
     function approveInspection() external onlyAdmin {
@@ -50,5 +60,9 @@ contract InspChain {
 
     function getInspectionType() external view returns (string memory) {
         return inspectionType;
+    }
+
+    function getInspectionStatusMessage() external view returns (string memory) {
+        return inspectionStatusMessage;
     }
 }

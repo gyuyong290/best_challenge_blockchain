@@ -18,7 +18,7 @@ const deployedContracts = {
             },
             {
               internalType: "address",
-              name: "_creator",
+              name: "_inspector",
               type: "address",
             },
             {
@@ -51,6 +51,12 @@ const deployedContracts = {
               internalType: "address",
               name: "submittedBy",
               type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "statusMessage",
+              type: "string",
             },
             {
               indexed: false,
@@ -97,19 +103,6 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "creator",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
           name: "getInspectionDetails",
           outputs: [
             {
@@ -129,6 +122,19 @@ const deployedContracts = {
               internalType: "bool",
               name: "",
               type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getInspectionStatusMessage",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
             },
           ],
           stateMutability: "view",
@@ -162,6 +168,32 @@ const deployedContracts = {
         },
         {
           inputs: [],
+          name: "inspectionStatusMessage",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "inspectionTimestamp",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
           name: "inspectionType",
           outputs: [
             {
@@ -174,7 +206,25 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [],
+          name: "inspector",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [
+            {
+              internalType: "string",
+              name: "statusMessage",
+              type: "string",
+            },
             {
               internalType: "string",
               name: "details",
