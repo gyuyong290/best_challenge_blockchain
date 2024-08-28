@@ -24,7 +24,7 @@ const deployedContracts = {
             },
             {
               internalType: "string",
-              name: "_inspectionType",
+              name: "_inspectTarget",
               type: "string",
             },
           ],
@@ -40,8 +40,32 @@ const deployedContracts = {
               name: "approvedBy",
               type: "address",
             },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "inspectionIndex",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "comment",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "enum InspChain.JudgeState",
+              name: "state",
+              type: "uint8",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
           ],
-          name: "InspectionApproved",
+          name: "InspectionJudged",
           type: "event",
         },
         {
@@ -56,14 +80,26 @@ const deployedContracts = {
             {
               indexed: false,
               internalType: "string",
-              name: "statusMessage",
+              name: "inspectionType",
               type: "string",
             },
             {
               indexed: false,
               internalType: "string",
-              name: "details",
+              name: "inspectionDetail",
               type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "statusMessage",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
             },
           ],
           name: "InspectionSubmitted",
@@ -83,98 +119,54 @@ const deployedContracts = {
           type: "function",
         },
         {
-          inputs: [],
-          name: "approveInspection",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "approved",
-          outputs: [
+          inputs: [
             {
-              internalType: "bool",
-              name: "",
-              type: "bool",
+              internalType: "uint256",
+              name: "_index",
+              type: "uint256",
             },
           ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "getInspectionDetails",
+          name: "getInspection",
           outputs: [
+            {
+              internalType: "address",
+              name: "inspector",
+              type: "address",
+            },
             {
               internalType: "string",
-              name: "",
+              name: "inspectionType",
               type: "string",
             },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "getInspectionStatus",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "getInspectionStatusMessage",
-          outputs: [
             {
               internalType: "string",
-              name: "",
+              name: "inspectionDetails",
               type: "string",
             },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "getInspectionType",
-          outputs: [
             {
               internalType: "string",
-              name: "",
+              name: "inspectionStatusMessage",
               type: "string",
             },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "inspectionDetails",
-          outputs: [
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "judgeTimestamp",
+              type: "uint256",
+            },
             {
               internalType: "string",
-              name: "",
+              name: "judgeComment",
               type: "string",
             },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "inspectionStatusMessage",
-          outputs: [
             {
-              internalType: "string",
-              name: "",
-              type: "string",
+              internalType: "enum InspChain.JudgeState",
+              name: "state",
+              type: "uint8",
             },
           ],
           stateMutability: "view",
@@ -182,7 +174,7 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "inspectionTimestamp",
+          name: "getInspectionCount",
           outputs: [
             {
               internalType: "uint256",
@@ -195,12 +187,73 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "inspectionType",
+          name: "inspectTarget",
           outputs: [
             {
               internalType: "string",
               name: "",
               type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "inspectionHistories",
+          outputs: [
+            {
+              internalType: "address",
+              name: "inspector",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "inspectionType",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inspectionDetail",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inspectionStatusMessage",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "timestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "comment",
+                  type: "string",
+                },
+                {
+                  internalType: "enum InspChain.JudgeState",
+                  name: "state",
+                  type: "uint8",
+                },
+              ],
+              internalType: "struct InspChain.JudgeHistory",
+              name: "judgeHistory",
+              type: "tuple",
             },
           ],
           stateMutability: "view",
@@ -222,13 +275,41 @@ const deployedContracts = {
         {
           inputs: [
             {
+              internalType: "uint256",
+              name: "_inspectionIndex",
+              type: "uint256",
+            },
+            {
               internalType: "string",
-              name: "statusMessage",
+              name: "_comment",
+              type: "string",
+            },
+            {
+              internalType: "enum InspChain.JudgeState",
+              name: "_state",
+              type: "uint8",
+            },
+          ],
+          name: "judgeInspection",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_inspectionType",
               type: "string",
             },
             {
               internalType: "string",
-              name: "details",
+              name: "_detail",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_statusMessage",
               type: "string",
             },
           ],
