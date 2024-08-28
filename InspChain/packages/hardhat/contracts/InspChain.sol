@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract InspChain {
-    address public admin;
-    address public inspector;
+
+contract InspChain is AccessControl {
+    bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
+    bytes32 public constant INSPECTOR_ROLE = keccak256("INSPECTOR_ROLE");
     string public inspectTarget;
 
     enum JudgeState { Pending, Approved, Rejected }
@@ -42,22 +44,31 @@ contract InspChain {
         uint256 timestamp
     );
 
+    constructor(address _admin, address _inspector, string memory _inspectTarget) {
+        require(_admin != address(0) && _inspector != address(0), "Invalid address");
+
+        // Assign default admin role to the deployer
+        _setupRole(DEFAULT_ADMIN_ROLE, _admin);
+
+        // Setup roles
+        _setupRole(ADMIN_ROLE, _admin);
+        _setupRole(INSPECTOR_ROLE, _inspector);
+
+        // Set role admins
+        _setRoleAdmin(INSPECTOR_ROLE, ADMIN_ROLE);
+        _setRoleAdmin(ADMIN_ROLE, DEFAULT_ADMIN_ROLE);
+
+        inspectTarget = _inspectTarget;
+    }
 
     modifier onlyAdmin() {
-        require(msg.sender == admin, "Not admin");
+        require(hasRole(ADMIN_ROLE, msg.sender), "Not admin");
         _;
     }
 
     modifier onlyInspector() {
-        require(msg.sender == inspector, "Not inspector");
+        require(hasRole(INSPECTOR_ROLE, msg.sender), "Not inspector");
         _;
-    }
-
-    constructor(address _admin, address _inspector, string memory _inspectTarget) {
-        require(_admin != address(0) && _inspector != address(0), "Invalid address");
-        admin = _admin;
-        inspector = _inspector;
-        inspectTarget = _inspectTarget; // Store the inspection target
     }
 
     function submitInspection(
@@ -139,5 +150,22 @@ contract InspChain {
             approval.comment,
             approval.state
         );
+    }
+
+    // Functions to manage roles
+    function addInspector(address account) external onlyAdmin {
+        grantRole(INSPECTOR_ROLE, account);
+    }
+
+    function removeInspector(address account) external onlyAdmin {
+        revokeRole(INSPECTOR_ROLE, account);
+    }
+
+    function addAdmin(address account) external onlyAdmin {
+        grantRole(ADMIN_ROLE, account);
+    }
+
+    function removeAdmin(address account) external onlyAdmin {
+        revokeRole(ADMIN_ROLE, account);
     }
 }
