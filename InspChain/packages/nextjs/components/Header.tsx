@@ -26,7 +26,19 @@ export const menuLinks: HeaderMenuLink[] = [
   {
     label: "Transaction List",
     href: "/blockexplorer",
-  }
+  },
+  {
+    label: "승인",
+    href: "/approve",
+  },
+  {
+    label: "조회",
+    href: "/query",
+  },
+  {
+    label: "권한",
+    href: "/grant",
+  },
 ];
 
 export const HeaderMenuLinks = () => {
