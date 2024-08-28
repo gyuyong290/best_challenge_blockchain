@@ -26,10 +26,14 @@ contract InspChain is AccessControl {
         JudgeHistory judgeHistory;
     }
 
-    InspectionHistory[] public inspectionHistories;
+    // Mapping from inspection ID to array of revisions
+    mapping(uint256 => InspectionHistory[]) public inspectionHistories;
+    uint256 public inspectionCounter;
 
     event InspectionSubmitted(
         address indexed submittedBy,
+        uint256 inspectionId,
+        uint256 revisionNumber,
         string inspectionType,
         string inspectionDetail,
         string statusMessage,
@@ -37,8 +41,9 @@ contract InspChain is AccessControl {
     );
 
     event InspectionJudged(
-        address indexed approvedBy,
-        uint256 inspectionIndex,
+        address indexed judgedBy,
+        uint256 inspectionId,
+        uint256 revisionNumber,
         string comment,
         JudgeState state,
         uint256 timestamp
@@ -59,6 +64,7 @@ contract InspChain is AccessControl {
         _setRoleAdmin(ADMIN_ROLE, DEFAULT_ADMIN_ROLE);
 
         inspectTarget = _inspectTarget;
+        inspectionCounter = 0; // Initialize the inspection counter
     }
 
     modifier onlyAdmin() {
@@ -72,22 +78,41 @@ contract InspChain is AccessControl {
     }
 
     function submitInspection(
+        uint256 _inspectionId, // Use 0to create a new inspection, or provide an existing ID for a revision
         string memory _inspectionType,
         string memory _detail,
         string memory _statusMessage
-    ) external onlyInspector{
+    ) external onlyInspector {
         InspectionHistory memory newInspectionHist;
         newInspectionHist.inspector = msg.sender;
         newInspectionHist.inspectionType = _inspectionType;
         newInspectionHist.inspectionDetail = _detail;
         newInspectionHist.inspectionStatusMessage = _statusMessage;
-        newInspectionHist.timestamp = block.timestamp;  // Automatically set timestamp
+        newInspectionHist.timestamp = block.timestamp;
+        newInspectionHist.judgeHistory.state = JudgeState.Pending;
 
-        // Add the new inspection to the history
-        inspectionHistories.push(newInspectionHist);
+        uint256 revisionNumber;
+
+        if (_inspectionId == 0) {
+            // Create a new inspection history
+            inspectionCounter++;
+            _inspectionId = inspectionCounter;
+            revisionNumber = 0;
+        } else {
+            // Check if the specified inspection ID exists
+            require(_inspectionId <= inspectionCounter, "Inspection ID does not exist");
+
+            // Add a revision to the existing inspection
+            revisionNumber = inspectionHistories[_inspectionId].length;
+        }
+
+        // Push the new inspection history (or revision) to the mapping
+        inspectionHistories[_inspectionId].push(newInspectionHist);
 
         emit InspectionSubmitted(
             msg.sender,
+            _inspectionId,
+            revisionNumber,
             _inspectionType,
             _detail,
             _statusMessage,
@@ -96,36 +121,44 @@ contract InspChain is AccessControl {
     }
 
     function judgeInspection(
-        uint256 _inspectionIndex,
+        uint256 _inspectionId,
+        uint256 _revisionNumber,
         string memory _comment,
         JudgeState _state
     ) external onlyAdmin {
-        require(_inspectionIndex < inspectionHistories.length, "Invalid inspection index");
+        require(_inspectionId <= inspectionCounter, "Invalid inspection ID");
+        require(_revisionNumber < inspectionHistories[_inspectionId].length, "Invalid revision number");
 
-        InspectionHistory storage inspection = inspectionHistories[_inspectionIndex];
-        require(inspection.judgeHistory.state == JudgeState.Pending, "Inspection already approved");
+        InspectionHistory storage inspection = inspectionHistories[_inspectionId][_revisionNumber];
+        require(inspection.judgeHistory.state == JudgeState.Pending, "Inspection already judged");
 
-        // Set the approval history
-        inspection.judgeHistory.timestamp = block.timestamp;   // Automatically set timestamp
+        inspection.judgeHistory.timestamp = block.timestamp;
         inspection.judgeHistory.comment = _comment;
         inspection.judgeHistory.state = _state;
 
         emit InspectionJudged(
             msg.sender,
-            _inspectionIndex,
+            _inspectionId,
+            _revisionNumber,
             _comment,
             _state,
             block.timestamp
         );
     }
 
-    // Function to get the number of inspections in the history
+    // Function to get the number of inspections
     function getInspectionCount() external view returns (uint256) {
-        return inspectionHistories.length;
+        return inspectionCounter;
     }
 
-    // Function to get details of a specific inspection by index
-    function getInspection(uint256 _index) external view returns (
+    // Function to get the number of revisions for a specific inspection
+    function getRevisionCount(uint256 _inspectionId) external view returns (uint256) {
+        require(_inspectionId <= inspectionCounter, "Invalid inspection ID");
+        return inspectionHistories[_inspectionId].length;
+    }
+
+    // Function to get details of a specific inspection revision
+    function getInspection(uint256 _inspectionId, uint256 _revisionNumber) external view returns (
         address inspector,
         string memory inspectionType,
         string memory inspectionDetails,
@@ -135,10 +168,11 @@ contract InspChain is AccessControl {
         string memory judgeComment,
         JudgeState state
     ) {
-        require(_index < inspectionHistories.length, "Invalid index");
+        require(_inspectionId <= inspectionCounter, "Invalid inspection ID");
+        require(_revisionNumber < inspectionHistories[_inspectionId].length, "Invalid revision number");
 
-        InspectionHistory memory inspection = inspectionHistories[_index];
-        JudgeHistory memory approval = inspection.judgeHistory;
+        InspectionHistory memory inspection = inspectionHistories[_inspectionId][_revisionNumber];
+        JudgeHistory memory judgeHistory = inspection.judgeHistory;
 
         return (
             inspection.inspector,
@@ -146,9 +180,9 @@ contract InspChain is AccessControl {
             inspection.inspectionDetail,
             inspection.inspectionStatusMessage,
             inspection.timestamp,
-            approval.timestamp,
-            approval.comment,
-            approval.state
+            judgeHistory.timestamp,
+            judgeHistory.comment,
+            judgeHistory.state
         );
     }
 
