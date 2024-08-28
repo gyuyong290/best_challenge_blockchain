@@ -19,7 +19,8 @@ export const ContractVariables = ({
     .filter(fn => {
       const isQueryableWithNoParams =
         (fn.stateMutability === "view" || fn.stateMutability === "pure") && fn.inputs.length === 0;
-      return isQueryableWithNoParams;
+        const isNotDefaultAdminRole = fn.name !== "DEFAULT_ADMIN_ROLE"; // DEFAULT_ADMIN_ROLE 필터링
+      return isQueryableWithNoParams && isNotDefaultAdminRole;
     })
     .map(fn => {
       return {
