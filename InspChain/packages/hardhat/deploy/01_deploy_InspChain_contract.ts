@@ -2,20 +2,19 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { Contract } from "ethers";
 
-/**
- * Deploys the "InspChain" contract using the deployer account
- *
- * @param hre HardhatRuntimeEnvironment object.
- */
 const deployInspChain: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
+  // Replace these values with actual addresses and a valid inspection type.
+  const adminAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"; // Replace with actual admin address
+  const inspectorAddress = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"; // Replace with actual creator address
+  const inspectionType = "Type A"; // Replace with actual inspection type
+
   // Deploy the InspChain contract
   await deploy("InspChain", {
     from: deployer,
-    // No constructor arguments for InspChain contract
-    args: [],
+    args: [adminAddress, inspectorAddress, inspectionType], // Pass constructor arguments here
     log: true,
     autoMine: true, // Automatically mine the transaction on local networks
   });
@@ -27,6 +26,4 @@ const deployInspChain: DeployFunction = async function (hre: HardhatRuntimeEnvir
 
 export default deployInspChain;
 
-// Tags are useful if you have multiple deploy files and only want to run one of them.
-// e.g. yarn deploy --tags InspChain
 deployInspChain.tags = ["InspChain"];
