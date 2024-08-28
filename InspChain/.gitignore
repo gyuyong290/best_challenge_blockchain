@@ -2,12 +2,12 @@
 node_modules
 
 # yarn
-./InspChain/yarn/*
-!./InspChain/yarn/patches
-!./InspChain/yarn/plugins
-!./InspChain/yarn/releases
-!./InspChain/yarn/sdks
-!./InspChain/yarn/versions
+./InspChain/.yarn/*
+!./InspChain/.yarn/patches
+!./InspChain/.yarn/plugins
+!./InspChain/.yarn/releases
+!./InspChain/.yarn/sdks
+!./InspChain/.yarn/versions
 
 # eslint
 .eslintcache
