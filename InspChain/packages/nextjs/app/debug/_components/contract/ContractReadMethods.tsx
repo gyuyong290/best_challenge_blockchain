@@ -2,7 +2,14 @@ import { Abi, AbiFunction } from "abitype";
 import { ReadOnlyFunctionForm } from "~~/app/debug/_components/contract";
 import { Contract, ContractName, GenericContract, InheritedFunctions } from "~~/utils/scaffold-eth/contract";
 
-export const ContractReadMethods = ({ deployedContractData }: { deployedContractData: Contract<ContractName> }) => {
+type ContractReadMethodsProps = {
+  deployedContractData: Contract<ContractName>;
+  filterKeyword?: string; // 필터 키워드 추가
+};
+
+export const ContractReadMethods = ({ deployedContractData,
+  filterKeyword = "", // 기본값 설정
+}: ContractReadMethodsProps) => {
   if (!deployedContractData) {
     return null;
   }
@@ -13,7 +20,8 @@ export const ContractReadMethods = ({ deployedContractData }: { deployedContract
     .filter(fn => {
       const isQueryableWithParams =
         (fn.stateMutability === "view" || fn.stateMutability === "pure") && fn.inputs.length > 0;
-      return isQueryableWithParams;
+      const matchesFilter = !filterKeyword || fn.name.toLowerCase().includes(filterKeyword.toLowerCase());
+      return (isQueryableWithParams && matchesFilter);
     })
     .map(fn => {
       return {

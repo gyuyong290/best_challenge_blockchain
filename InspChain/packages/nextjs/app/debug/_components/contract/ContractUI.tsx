@@ -13,12 +13,13 @@ import { ContractName } from "~~/utils/scaffold-eth/contract";
 type ContractUIProps = {
   contractName: ContractName;
   className?: string;
+  filterKeyword?: string;
 };
 
 /**
  * UI component to interface with deployed contracts.
  **/
-export const ContractUI = ({ contractName, className = "" }: ContractUIProps) => {
+export const ContractUI = ({ contractName, className, filterKeyword = "" }: ContractUIProps) => {
   const [refreshDisplayVariables, triggerRefreshDisplayVariables] = useReducer(value => !value, false);
   const { targetNetwork } = useTargetNetwork();
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
@@ -78,7 +79,7 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
                 </div>
               </div>
               <div className="p-5 divide-y divide-base-300">
-                <ContractReadMethods deployedContractData={deployedContractData} />
+                <ContractReadMethods deployedContractData={deployedContractData} filterKeyword={filterKeyword}/>
               </div>
             </div>
           </div>
@@ -92,6 +93,7 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
               <div className="p-5 divide-y divide-base-300">
                 <ContractWriteMethods
                   deployedContractData={deployedContractData}
+                  filterKeyword={filterKeyword}
                   onChange={triggerRefreshDisplayVariables}
                 />
               </div>

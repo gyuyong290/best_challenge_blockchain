@@ -1,9 +1,10 @@
 import { NextPage } from "next";
+import { DebugContracts } from "../debug/_components/DebugContracts";
 
 const Grant: NextPage = () => {
     return (
         <div>
-            <h1>Grant</h1>
+           <DebugContracts filterKeyword={"Role"} />
         </div>
     );
 };

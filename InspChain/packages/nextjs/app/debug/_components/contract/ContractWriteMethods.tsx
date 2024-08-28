@@ -4,9 +4,11 @@ import { Contract, ContractName, GenericContract, InheritedFunctions } from "~~/
 
 export const ContractWriteMethods = ({
   onChange,
+  filterKeyword,
   deployedContractData,
 }: {
   onChange: () => void;
+  filterKeyword?: string;
   deployedContractData: Contract<ContractName>;
 }) => {
   if (!deployedContractData) {
@@ -18,7 +20,8 @@ export const ContractWriteMethods = ({
   )
     .filter(fn => {
       const isWriteableFunction = fn.stateMutability !== "view" && fn.stateMutability !== "pure";
-      return isWriteableFunction;
+      const matchesFilter = !filterKeyword || fn.name.toLowerCase().includes(filterKeyword.toLowerCase());
+      return isWriteableFunction && matchesFilter;
     })
     .map(fn => {
       return {
