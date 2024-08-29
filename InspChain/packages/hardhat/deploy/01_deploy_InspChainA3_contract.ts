@@ -1,7 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { Contract } from "ethers";
-import { UserRole } from "../constants/UserRole";
+import { UserRole } from "../../constants/User";
 
 const contract = "InspChainA3";
 
@@ -12,7 +12,7 @@ const deployInspChain: DeployFunction = async function (hre: HardhatRuntimeEnvir
   // Replace these values with actual addresses and a valid inspection type.
   const adminAddress = UserRole[contract].admin; // Replace with actual admin address
   const inspectorAddress = UserRole[contract].inspector; // Replace with actual creator address
-  const inspectTarget = "Machine A"; // Replace with actual inspection target
+  const inspectTarget = "Machine A-3"; // Replace with actual inspection target
 
   // Deploy the InspChain contract
   await deploy(contract, {

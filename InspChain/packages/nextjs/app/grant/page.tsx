@@ -1,12 +1,12 @@
+import { GrantContracts } from "./_components/GrantContracts";
 import { NextPage } from "next";
-import { KHJDebugContracts } from "../debug/_components/KHJDebugContracts";
 
 const Grant: NextPage = () => {
-    return (
-        <div>
-           <KHJDebugContracts filterKeyword={"Role"} />
-        </div>
-    );
+  return (
+    <div>
+      <GrantContracts filterKeyword={"Role"} />
+    </div>
+  );
 };
 
 export default Grant;

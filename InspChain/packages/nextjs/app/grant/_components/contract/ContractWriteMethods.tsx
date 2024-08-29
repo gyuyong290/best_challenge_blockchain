@@ -1,27 +1,28 @@
+import { WriteOnlyFunctionForm } from "./WriteOnlyFunctionForm";
 import { Abi, AbiFunction } from "abitype";
-import { ReadOnlyFunctionForm } from "~~/app/debug/_components/contract";
 import { Contract, ContractName, GenericContract, InheritedFunctions } from "~~/utils/scaffold-eth/contract";
 
-type ContractReadMethodsProps = {
+export const ContractWriteMethods = ({
+  onChange,
+  filterKeyword,
+  deployedContractData,
+}: {
+  onChange: () => void;
+  filterKeyword?: string;
   deployedContractData: Contract<ContractName>;
-  filterKeyword?: string; // 필터 키워드 추가
-};
-
-export const KHJContractReadMethods = ({ deployedContractData,
-  filterKeyword = "", // 기본값 설정
-}: ContractReadMethodsProps) => {
+}) => {
   if (!deployedContractData) {
     return null;
   }
 
   const functionsToDisplay = (
-    ((deployedContractData.abi || []) as Abi).filter(part => part.type === "function") as AbiFunction[]
+    (deployedContractData.abi as Abi).filter(part => part.type === "function") as AbiFunction[]
   )
     .filter(fn => {
-      const isQueryableWithParams =
-        (fn.stateMutability === "view" || fn.stateMutability === "pure") && fn.inputs.length > 0;
+      const isWriteableFunction = fn.stateMutability !== "view" && fn.stateMutability !== "pure";
       const matchesFilter = !filterKeyword || fn.name.toLowerCase().includes(filterKeyword.toLowerCase());
-      return (isQueryableWithParams && matchesFilter);
+      const isNotRenoune = fn.name !== "renounceRole"; // renounceRole 필터링
+      return isWriteableFunction && matchesFilter && isNotRenoune;
     })
     .map(fn => {
       return {
@@ -32,17 +33,18 @@ export const KHJContractReadMethods = ({ deployedContractData,
     .sort((a, b) => (b.inheritedFrom ? b.inheritedFrom.localeCompare(a.inheritedFrom) : 1));
 
   if (!functionsToDisplay.length) {
-    return <>No read methods</>;
+    return <>No write methods</>;
   }
 
   return (
     <>
-      {functionsToDisplay.map(({ fn, inheritedFrom }) => (
-        <ReadOnlyFunctionForm
+      {functionsToDisplay.map(({ fn, inheritedFrom }, idx) => (
+        <WriteOnlyFunctionForm
           abi={deployedContractData.abi as Abi}
-          contractAddress={deployedContractData.address}
+          key={`${fn.name}-${idx}}`}
           abiFunction={fn}
-          key={fn.name}
+          onChange={onChange}
+          contractAddress={deployedContractData.address}
           inheritedFrom={inheritedFrom}
         />
       ))}
