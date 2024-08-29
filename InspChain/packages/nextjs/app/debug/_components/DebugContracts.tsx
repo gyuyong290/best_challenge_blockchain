@@ -67,24 +67,37 @@ export function DebugContracts() {
         <>
           {filteredContractNames.length > 1 && (
             <div className="flex flex-row gap-2 w-full max-w-7xl pb-1 px-6 lg:px-10 flex-wrap">
-              {filteredContractNames.map(contractName => (
-                <button
-                  className={`btn btn-secondary btn-sm font-light hover:border-transparent ${
-                    contractName === selectedContract
-                      ? "bg-base-300 hover:bg-base-300 no-animation"
-                      : "bg-base-100 hover:bg-secondary"
-                  }`}
-                  key={contractName}
-                  onClick={() => setSelectedContract(contractName)}
-                >
-                  {contractName}
-                  {contractsData[contractName].external && (
-                    <span className="tooltip tooltip-top tooltip-accent" data-tip="External contract">
-                      <BarsArrowUpIcon className="h-4 w-4 cursor-pointer" />
-                    </span>
-                  )}
-                </button>
-              ))}
+              {filteredContractNames.map(contractName => {
+                const roleAddresses = UserRole[contractName];
+                const isAdmin = roleAddresses?.admin === loginAddress;
+                const isInspector = roleAddresses?.inspector === loginAddress;
+
+                let roleText = "";
+                if (isAdmin) {
+                  roleText = "(관리담당자)";
+                } else if (isInspector) {
+                  roleText = "(점검자)";
+                }
+
+                return (
+                  <button
+                    className={`btn btn-secondary btn-sm font-light hover:border-transparent ${
+                      contractName === selectedContract
+                        ? "bg-base-300 hover:bg-base-300 no-animation"
+                        : "bg-base-100 hover:bg-secondary"
+                    }`}
+                    key={contractName}
+                    onClick={() => setSelectedContract(contractName)}
+                  >
+                    {contractName} {roleText}
+                    {contractsData[contractName].external && (
+                      <span className="tooltip tooltip-top tooltip-accent" data-tip="External contract">
+                        <BarsArrowUpIcon className="h-4 w-4 cursor-pointer" />
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           )}
           {filteredContractNames.map(contractName => (
