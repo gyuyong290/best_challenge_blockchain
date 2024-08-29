@@ -48,7 +48,7 @@ contract InspChain is AccessControl {
         require(_admin != address(0) && _inspector != address(0), "Invalid address");
 
         // Assign default admin role to the deployer
-        _setupRole(DEFAULT_ADMIN_ROLE, _admin);
+        //_setupRole(DEFAULT_ADMIN_ROLE, _admin);
 
         // Setup roles
         _setupRole(ADMIN_ROLE, _admin);
@@ -56,7 +56,7 @@ contract InspChain is AccessControl {
 
         // Set role admins
         _setRoleAdmin(INSPECTOR_ROLE, ADMIN_ROLE);
-        _setRoleAdmin(ADMIN_ROLE, DEFAULT_ADMIN_ROLE);
+        _setRoleAdmin(ADMIN_ROLE, ADMIN_ROLE);
 
         inspectTarget = _inspectTarget;
     }
