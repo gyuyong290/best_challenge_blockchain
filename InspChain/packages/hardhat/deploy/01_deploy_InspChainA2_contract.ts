@@ -1,7 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { Contract } from "ethers";
-import { UserRole } from "../constants/UserRole";
+import { UserRole } from "../../constants/User";
 
 const contract = "InspChainA2";
 
