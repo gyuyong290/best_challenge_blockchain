@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 
-contract InspChain is AccessControl {
+contract InspChainA1 is AccessControl {
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
     bytes32 public constant INSPECTOR_ROLE = keccak256("INSPECTOR_ROLE");
     string public inspectTarget;
@@ -48,7 +48,7 @@ contract InspChain is AccessControl {
         require(_admin != address(0) && _inspector != address(0), "Invalid address");
 
         // Assign default admin role to the deployer
-        //_setupRole(DEFAULT_ADMIN_ROLE, _admin);
+        _setupRole(DEFAULT_ADMIN_ROLE, _admin);
 
         // Setup roles
         _setupRole(ADMIN_ROLE, _admin);
@@ -56,7 +56,7 @@ contract InspChain is AccessControl {
 
         // Set role admins
         _setRoleAdmin(INSPECTOR_ROLE, ADMIN_ROLE);
-        _setRoleAdmin(ADMIN_ROLE, ADMIN_ROLE);
+        _setRoleAdmin(ADMIN_ROLE, DEFAULT_ADMIN_ROLE);
 
         inspectTarget = _inspectTarget;
     }
