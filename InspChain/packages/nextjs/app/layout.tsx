@@ -5,7 +5,7 @@ import "~~/styles/globals.css";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 
 export const metadata = getMetadata({
-  title: "유유상종",
+  title: "스마트 점검 관리 시스템",
   description: "살려주세요",
 });
 
