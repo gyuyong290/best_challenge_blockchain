@@ -1,10 +1,10 @@
 import { NextPage } from "next";
-import { DebugContracts } from "../debug/_components/DebugContracts";
+import { KHJDebugContracts } from "../debug/_components/KHJDebugContracts";
 
 const Grant: NextPage = () => {
     return (
         <div>
-           <DebugContracts filterKeyword={"Role"} />
+           <KHJDebugContracts filterKeyword={"Role"} />
         </div>
     );
 };

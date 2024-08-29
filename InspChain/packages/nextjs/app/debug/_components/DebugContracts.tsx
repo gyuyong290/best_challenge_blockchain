@@ -11,11 +11,7 @@ const selectedContractStorageKey = "scaffoldEth2.selectedContract";
 const contractsData = getAllContracts();
 const contractNames = Object.keys(contractsData) as ContractName[];
 
-type DebugContractsProps = {
-  filterKeyword?: string; // 필터링 키워드를 받는 props
-};
-
-export function DebugContracts({ filterKeyword }: DebugContractsProps) {
+export function DebugContracts() {
   const [selectedContract, setSelectedContract] = useLocalStorage<ContractName>(
     selectedContractStorageKey,
     contractNames[0],
@@ -61,7 +57,6 @@ export function DebugContracts({ filterKeyword }: DebugContractsProps) {
               key={contractName}
               contractName={contractName}
               className={contractName === selectedContract ? "" : "hidden"}
-              filterKeyword={filterKeyword}
             />
           ))}
         </>
