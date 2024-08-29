@@ -16,17 +16,17 @@ type HeaderMenuLink = {
 
 export const menuLinks: HeaderMenuLink[] = [
   {
-    label: "Home",
+    label: "홈",
     href: "/",
     icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
   {
-    label: "Contracts",
+    label: "거래",
     href: "/debug",
     icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
   {
-    label: "Transaction List",
+    label: "트랜잭션 목록",
     href: "/blockexplorer",
     icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
@@ -36,12 +36,17 @@ export const menuLinks: HeaderMenuLink[] = [
     icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
   {
-    label: "조회",
-    href: "/query",
+    label: "점검내역 조회",
+    href: "/inspecthistory",
     icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
   {
-    label: "Permission Setting",
+    label: "승인내역 조회",
+    href: "/judgehistory",
+    icon: <MagnifyingGlassIcon className="h-4 w-4" />,
+  },
+  {
+    label: "권한 설정",
     href: "/grant",
     icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
