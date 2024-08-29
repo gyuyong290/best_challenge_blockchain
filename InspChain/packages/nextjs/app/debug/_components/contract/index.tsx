@@ -6,3 +6,6 @@ export * from "./TxReceipt";
 export * from "./utilsContract";
 export * from "./utilsDisplay";
 export * from "./WriteOnlyFunctionForm";
+export * from "./KHJContractUI";
+export * from "./KHJContractReadMethods";
+export * from "./KHJContractWriteMethods";
