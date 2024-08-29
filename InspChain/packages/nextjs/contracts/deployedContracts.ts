@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     InspChain: {
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
       abi: [
         {
           inputs: [
@@ -242,6 +242,68 @@ const deployedContracts = {
           name: "addInspector",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAllInspections",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "inspector",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "inspectionType",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "inspectionDetail",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "inspectionStatusMessage",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "timestamp",
+                  type: "uint256",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "timestamp",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "string",
+                      name: "comment",
+                      type: "string",
+                    },
+                    {
+                      internalType: "enum InspChain.JudgeState",
+                      name: "state",
+                      type: "uint8",
+                    },
+                  ],
+                  internalType: "struct InspChain.JudgeHistory",
+                  name: "judgeHistory",
+                  type: "tuple",
+                },
+              ],
+              internalType: "struct InspChain.InspectionHistory[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {

@@ -168,4 +168,15 @@ contract InspChain is AccessControl {
     function removeAdmin(address account) external onlyAdmin {
         revokeRole(ADMIN_ROLE, account);
     }
+        // Function to get details of all inspections
+    function getAllInspections() external view returns (
+        InspectionHistory[] memory
+    ) {
+        // Ensure that only admin or inspector can access this function
+        // require(
+        //     hasRole(ADMIN_ROLE, msg.sender) || hasRole(INSPECTOR_ROLE, msg.sender),
+        //     "Not authorized"
+        // );
+        return inspectionHistories;
+    }
 }
