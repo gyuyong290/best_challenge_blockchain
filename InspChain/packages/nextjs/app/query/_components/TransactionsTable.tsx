@@ -1,25 +1,25 @@
+// useReadContract 훅 가져오기
+import { useEffect } from "react";
 import { TransactionHash } from "./TransactionHash";
+import { useReadContract } from "wagmi";
+import deployedContracts from "~~/contracts/deployedContracts";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { TransactionWithFunction } from "~~/utils/scaffold-eth";
-import { TransactionsTableProps } from "~~/utils/scaffold-eth/";
 import { getFunctionDetails } from "~~/utils/scaffold-eth";
-import deployedContracts from "~~/contracts/deployedContracts";
-import { useReadContract } from "wagmi"; // useReadContract 훅 가져오기
-import { useEffect } from "react";
+import { TransactionsTableProps } from "~~/utils/scaffold-eth/";
 
 export const TransactionsTable = ({ blocks, transactionReceipts }: TransactionsTableProps) => {
   const { targetNetwork } = useTargetNetwork();
-  // console.log(blocks[0]);
- 
+  console.log(blocks);
+
   // const contractAddress = blocks[0]?.transactions[0].to;
-  const contractAddress =  blocks[0]?.transactions[0].to || "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+  const contractAddress = blocks[0]?.transactions[0].to || "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
 
   // useReadContract 훅 설정
   const { isFetching, refetch, error, data } = useReadContract({
     address: contractAddress,
     functionName: "getAllInspections",
     abi: deployedContracts[31337].InspChain.abi,
-    // args: [BigInt(0)],
     chainId: targetNetwork.id,
     query: {
       enabled: false,
@@ -27,18 +27,14 @@ export const TransactionsTable = ({ blocks, transactionReceipts }: TransactionsT
     },
   });
 
-  // 데이터를 가져오기 위한 useEffect 훅
+  let inspections = data;
   useEffect(() => {
-    if (contractAddress) {
-      refetch().then((res) => {
-        console.log(res);
-      });
-    }
-  }, [contractAddress]); // contractAddress가 변경될 때만 실행
-
-  blocks.map(block => {
-
-  });
+    refetch().then(res => {
+      if (res.data) {
+        inspections = res.data;
+      }
+    });
+  }, [contractAddress]); // 빈 배열을 사용하여 컴포넌트 마운트 시 한 번만 실행
 
   return (
     <div className="flex justify-center px-4 md:px-0">
@@ -50,17 +46,18 @@ export const TransactionsTable = ({ blocks, transactionReceipts }: TransactionsT
               <th className="bg-primary">Inspection Type</th>
               <th className="bg-primary">Inpector</th>
               <th className="bg-primary">Confirmed</th>
-              <th className="bg-primary">Function Called</th>
-              <th className="bg-primary">Function Detail</th>
             </tr>
           </thead>
           <tbody>
             {blocks.map(block =>
               (block.transactions as TransactionWithFunction[]).map(tx => {
-                const receipt = transactionReceipts[tx.hash];
-                const timeMined = new Date(Number(block.timestamp) * 1000).toLocaleString();
-                const functionCalled = tx.input.substring(0, 10);
-                // console.log(typeof(block.transactions[0].functionArgs[0]), block.transactions[0].functionArgs[0]);
+                const inspectionIndex = Number(block.transactions[0].functionArgs[0]);
+                const inspection = inspections ? inspections[inspectionIndex] : null;
+                const inspector = inspection?.inspector;
+                const inspectionType = inspection?.inspectionType;
+                const judgementState = inspection?.judgeHistory.state;
+                const judgement = judgementState ? (judgementState === 1 ? "Confirmed" : "Rejected") : "Pending";
+                console.log(inspection);
                 return (
                   <tr key={tx.hash} className="hover text-sm">
                     <td className="w-1/12 md:py-4">
@@ -68,25 +65,11 @@ export const TransactionsTable = ({ blocks, transactionReceipts }: TransactionsT
                     </td>
                     {contractAddress && (
                       <>
-                    <td>{}</td>
-                    <td>hello</td>
-                    <td>hhh</td>
-                    </>
-                    )} 
-                    <td className="w-2/12 md:py-4">
-                      {tx.functionName === "0x" ? "" : <span className="mr-1">{tx.functionName}</span>}
-                      {functionCalled !== "0x" && (
-                        <span className="badge badge-primary font-bold text-xs">{functionCalled}</span>
-                      )}
-                    </td>
-                    <td>
-                      {functionCalled !== "0x" && (
-                        <>
-                          <span className="mr-2">{getFunctionDetails(tx)}</span>
-                          <span className="badge badge-primary font-bold text-xs">{functionCalled}</span>
-                        </>
-                      )}
-                    </td>
+                        <td>{inspectionType}</td>
+                        <td>{inspector}</td>
+                        <td>{judgement}</td>
+                      </>
+                    )}
                   </tr>
                 );
               }),
