@@ -39,8 +39,6 @@ export const KHJContractReadMethods = ({ deployedContractData,
   return (
     <>
       {functionsToDisplay.map(({ fn, inheritedFrom }) => (
-        console.log(fn.name),
-        console.log(fn),
         <KHJReadOnlyFunctionForm
           abi={deployedContractData.abi as Abi}
           contractAddress={deployedContractData.address}
