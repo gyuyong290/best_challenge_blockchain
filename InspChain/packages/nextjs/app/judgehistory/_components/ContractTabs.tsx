@@ -74,7 +74,7 @@ export const ContractTabs = ({ address, contractData }: PageProps) => {
       )}
       {activeTab === "transactions" && (
         <div className="pt-4">
-          <TransactionsTable blocks={filteredBlocks} transactionReceipts={transactionReceipts} />
+          <TransactionsTable blocks={blocks} transactionReceipts={transactionReceipts} />
           <PaginationButton
             currentPage={currentPage}
             totalItems={Number(totalBlocks)}

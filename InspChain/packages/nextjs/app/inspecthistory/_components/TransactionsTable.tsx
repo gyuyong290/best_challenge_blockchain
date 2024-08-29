@@ -47,7 +47,7 @@ export const TransactionsTable = ({ blocks }: TransactionsTableProps) => {
           </thead>
           <tbody>
             {inspections?.map((inspection, index) => {
-              if (inspection.inspector !== address) return;
+              // if (inspection.inspector !== address) return;
               const judgementState = inspection.judgeHistory.state;
               const judgement = judgementState ? (judgementState === 1 ? "승인 완료" : "반려") : "대기 중";
               return (

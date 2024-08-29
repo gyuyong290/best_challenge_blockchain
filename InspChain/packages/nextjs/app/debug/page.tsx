@@ -12,9 +12,7 @@ const Debug: NextPage = () => {
     <>
       <DebugContracts />
       <div className="text-center mt-8 bg-secondary p-10">
-        <p className="text-neutral">
-          샘플B
-        </p>
+        <p className="text-neutral"></p>
       </div>
     </>
   );

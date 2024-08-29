@@ -34,6 +34,7 @@ export const TransactionsTable = ({ blocks }: TransactionsTableProps) => {
     });
   }, [contractAddress]); // 빈 배열을 사용하여 컴포넌트 마운트 시 한 번만 실행
 
+  console.log(blocks);
   return (
     <div className="flex justify-center px-4 md:px-0">
       <div className="overflow-x-auto w-full shadow-2xl rounded-xl">
@@ -48,12 +49,15 @@ export const TransactionsTable = ({ blocks }: TransactionsTableProps) => {
           <tbody>
             {blocks.map(block =>
               (block.transactions as TransactionWithFunction[]).map(tx => {
-                if (block.transactions[0].from !== address) return;
+                // if (block.transactions[0].from !== address) return;
+                if (!block.transactions[0].functionArgs) return;
+                console.log(block);
                 const inspectionIndex = Number(block.transactions[0].functionArgs[0]);
                 const inspection = inspections ? inspections[inspectionIndex] : null;
                 const inspector = inspection?.inspector;
                 const inspectionType = inspection?.inspectionType;
                 const judgementState = inspection?.judgeHistory.state;
+                if (!judgementState) return;
                 const judgement = judgementState ? (judgementState === 1 ? "승인 완료" : "반려") : "대기 중";
                 return (
                   <tr key={tx.hash} className="hover text-sm">
