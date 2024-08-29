@@ -36,9 +36,12 @@ export function GrantContracts({ filterKeyword }: GrantContractsProps) {
             const roleAddresses = UserRole[contractName];
             if (roleAddresses) {
               const isAdmin = roleAddresses.admin === loginAddress;
-              const isInspector = roleAddresses.inspector === loginAddress;
+              // const isInspector = roleAddresses.inspector === loginAddress;
 
-              if (isAdmin || isInspector) {
+              // if (isAdmin || isInspector) {
+              //   filteredContracts.push(contractName);
+              // }
+              if (isAdmin) {
                 filteredContracts.push(contractName);
               }
             }
