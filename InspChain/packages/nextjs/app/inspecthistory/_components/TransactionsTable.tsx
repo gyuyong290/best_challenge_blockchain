@@ -33,6 +33,7 @@ export const TransactionsTable = ({ blocks }: TransactionsTableProps) => {
     });
   }, [contractAddress]); // 빈 배열을 사용하여 컴포넌트 마운트 시 한 번만 실행
 
+  console.log(inspections);
   return (
     <div className="flex justify-center px-4 md:px-0">
       <div className="overflow-x-auto w-full shadow-2xl rounded-xl">
