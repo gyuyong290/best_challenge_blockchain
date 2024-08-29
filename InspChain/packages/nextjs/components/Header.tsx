@@ -36,7 +36,7 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/query",
   },
   {
-    label: "권한",
+    label: "Permission Setting",
     href: "/grant",
   },
 ];

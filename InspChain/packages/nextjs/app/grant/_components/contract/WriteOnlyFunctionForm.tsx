@@ -49,13 +49,13 @@ const Dropdown = ({ value, onChange, options }: DropdownProps) => {
   );
 };
 
-export const KHJWriteOnlyFunctionForm = ({
+export const WriteOnlyFunctionForm = ({
   abi,
   abiFunction,
   onChange,
   contractAddress,
-  inheritedFrom,
-}: WriteOnlyFunctionFormProps) => {
+}: // inheritedFrom,
+WriteOnlyFunctionFormProps) => {
   const [form, setForm] = useState<Record<string, any>>(() => getInitialFormState(abiFunction));
   const [txValue, setTxValue] = useState<string | bigint>("");
   const { chain } = useAccount();

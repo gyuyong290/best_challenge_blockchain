@@ -47,7 +47,7 @@ const Dropdown = ({ value, onChange, options }: DropdownProps) => {
   );
 };
 
-export const KHJReadOnlyFunctionForm = ({ contractAddress, abiFunction, abi }: ReadOnlyFunctionFormProps) => {
+export const ReadOnlyFunctionForm = ({ contractAddress, abiFunction, abi }: ReadOnlyFunctionFormProps) => {
   const [form, setForm] = useState<Record<string, any>>(() => getInitialFormState(abiFunction));
   const [result, setResult] = useState<unknown>();
   const { targetNetwork } = useTargetNetwork();
