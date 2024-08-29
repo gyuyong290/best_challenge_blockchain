@@ -4,7 +4,7 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
@@ -18,26 +18,32 @@ export const menuLinks: HeaderMenuLink[] = [
   {
     label: "Home",
     href: "/",
+    icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
   {
     label: "Contracts",
     href: "/debug",
+    icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
   {
     label: "Transaction List",
     href: "/blockexplorer",
+    icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
   {
     label: "승인",
     href: "/approve",
+    icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
   {
     label: "조회",
     href: "/query",
+    icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
   {
     label: "권한",
     href: "/grant",
+    icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
 ];
 
@@ -108,8 +114,8 @@ export const Header = () => {
             <Image alt="SE2 logo" className="cursor-pointer" fill src="/logo.png" />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold leading-tight">유유상종</span>
-            <span className="text-xs">블록체인 해커톤</span>
+            <span className="font-bold leading-tight">스마트 점검 관리 시스템</span>
+            <span className="text-xs">with BlockChain</span>
           </div>
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">
