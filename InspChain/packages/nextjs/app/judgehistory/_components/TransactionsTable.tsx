@@ -1,22 +1,20 @@
 // useReadContract 훅 가져오기
 import { useEffect } from "react";
-import { TransactionHash } from "./TransactionHash";
-import { useReadContract } from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
 import deployedContracts from "~~/contracts/deployedContracts";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { TransactionWithFunction } from "~~/utils/scaffold-eth";
-import { getFunctionDetails } from "~~/utils/scaffold-eth";
 import { TransactionsTableProps } from "~~/utils/scaffold-eth/";
 
-export const TransactionsTable = ({ blocks, transactionReceipts }: TransactionsTableProps) => {
+export const TransactionsTable = ({ blocks }: TransactionsTableProps) => {
   const { targetNetwork } = useTargetNetwork();
-  console.log(blocks);
+  const { address } = useAccount();
 
   // const contractAddress = blocks[0]?.transactions[0].to;
-  const contractAddress = blocks[0]?.transactions[0].to || "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+  const contractAddress = blocks[0]?.transactions[0].to || "0x0000000000000000000000000000000000000000";
 
   // useReadContract 훅 설정
-  const { isFetching, refetch, error, data } = useReadContract({
+  const { refetch, data } = useReadContract({
     address: contractAddress,
     functionName: "getAllInspections",
     abi: deployedContracts[31337].InspChain.abi,
@@ -42,27 +40,23 @@ export const TransactionsTable = ({ blocks, transactionReceipts }: TransactionsT
         <table className="table text-xl bg-base-100 table-zebra w-full md:table-md table-sm">
           <thead>
             <tr className="rounded-xl text-sm text-base-content">
-              <th className="bg-primary">Transaction Hash</th>
-              <th className="bg-primary">Inspection Type</th>
-              <th className="bg-primary">Inpector</th>
-              <th className="bg-primary">Confirmed</th>
+              <th className="bg-primary">점검 유형</th>
+              <th className="bg-primary">점검자</th>
+              <th className="bg-primary">승인 여부</th>
             </tr>
           </thead>
           <tbody>
             {blocks.map(block =>
               (block.transactions as TransactionWithFunction[]).map(tx => {
+                if (block.transactions[0].from !== address) return;
                 const inspectionIndex = Number(block.transactions[0].functionArgs[0]);
                 const inspection = inspections ? inspections[inspectionIndex] : null;
                 const inspector = inspection?.inspector;
                 const inspectionType = inspection?.inspectionType;
                 const judgementState = inspection?.judgeHistory.state;
-                const judgement = judgementState ? (judgementState === 1 ? "Confirmed" : "Rejected") : "Pending";
-                console.log(inspection);
+                const judgement = judgementState ? (judgementState === 1 ? "승인 완료" : "반려") : "대기 중";
                 return (
                   <tr key={tx.hash} className="hover text-sm">
-                    <td className="w-1/12 md:py-4">
-                      <TransactionHash hash={tx.hash} />
-                    </td>
                     {contractAddress && (
                       <>
                         <td>{inspectionType}</td>

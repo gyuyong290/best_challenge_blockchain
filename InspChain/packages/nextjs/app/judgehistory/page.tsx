@@ -6,7 +6,7 @@ import { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { getContractDataByAddress } from "~~/utils/scaffold-eth/contractsData";
 
-const Query: NextPage = () => {
+const Judgehistory: NextPage = () => {
   const { address: loginAddress } = useAccount();
   const address = loginAddress || "0x0000000000000000000000000000000000000000";
   const [contractData, setContractData] = useState<{ bytecode: string; assembly: string } | null>(null);
@@ -23,4 +23,4 @@ const Query: NextPage = () => {
   return <ContractList address={address} contractData={contractData} />;
 };
 
-export default Query;
+export default Judgehistory;

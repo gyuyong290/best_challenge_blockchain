@@ -32,8 +32,12 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/approve",
   },
   {
-    label: "조회",
-    href: "/query",
+    label: "점검내역 조회",
+    href: "/inspecthistory",
+  },
+  {
+    label: "승인내역 조회",
+    href: "/judgehistory",
   },
   {
     label: "권한",
