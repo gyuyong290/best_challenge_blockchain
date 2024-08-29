@@ -28,25 +28,26 @@ export const UserRole = {
   InspChain: {
     admin: User.Jisun,
     inspector: User.Dayoung,
+    target: "Machine A",
   },
   InspChainA1: {
     admin: User.Jisun,
     inspector: User.Jay,
+    target: "Machine A-1",
   },
   InspChainA2: {
     admin: User.Jisun,
     inspector: User.Hyunji,
+    target: "Machine A-2",
   },
   InspChainA3: {
     admin: User.Gyuyong,
     inspector: User.Dayoung,
+    target: "Machine A-3",
   },
   InspChainA4: {
     admin: User.Gyuyong,
     inspector: User.Jay,
-  },
-  InspChainA5: {
-    admin: User.Gyuyong,
-    inspector: User.Soyeong,
+    target: "Machine A-4",
   },
 };

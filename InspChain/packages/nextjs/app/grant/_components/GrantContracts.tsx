@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { UserRole } from "../../../../constants/User";
+import { UserRole } from "../../../../constants/GlobalConstants";
 import { useLocalStorage } from "usehooks-ts";
 import { useAccount } from "wagmi";
 import { BarsArrowUpIcon } from "@heroicons/react/20/solid";

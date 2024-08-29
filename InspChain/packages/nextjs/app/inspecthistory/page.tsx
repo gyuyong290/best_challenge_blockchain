@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { UserRole } from "../../../constants/User";
+import { UserRole } from "../../../constants/GlobalConstants";
 import { ContractList } from "./_components/ContractList";
 import { NextPage } from "next";
 import { useAccount } from "wagmi";
