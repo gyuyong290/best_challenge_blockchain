@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     InspChain: {
-      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
       abi: [
         {
           inputs: [
@@ -647,7 +647,7 @@ const deployedContracts = {
       },
     },
     InspChainA1: {
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      address: "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
       abi: [
         {
           inputs: [
@@ -1287,7 +1287,7 @@ const deployedContracts = {
       },
     },
     InspChainA2: {
-      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      address: "0x9A676e781A523b5d0C0e43731313A708CB607508",
       abi: [
         {
           inputs: [
@@ -1927,7 +1927,7 @@ const deployedContracts = {
       },
     },
     InspChainA3: {
-      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      address: "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
       abi: [
         {
           inputs: [
@@ -2442,6 +2442,1286 @@ const deployedContracts = {
             },
             {
               internalType: "enum InspChainA3.JudgeState",
+              name: "_state",
+              type: "uint8",
+            },
+          ],
+          name: "judgeInspection",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "removeAdmin",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "removeInspector",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "renounceRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "revokeRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_inspectionType",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_detail",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_statusMessage",
+              type: "string",
+            },
+          ],
+          name: "submitInspection",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes4",
+              name: "interfaceId",
+              type: "bytes4",
+            },
+          ],
+          name: "supportsInterface",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        DEFAULT_ADMIN_ROLE: "@openzeppelin/contracts/access/AccessControl.sol",
+        getRoleAdmin: "@openzeppelin/contracts/access/AccessControl.sol",
+        grantRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        hasRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        renounceRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        revokeRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        supportsInterface: "@openzeppelin/contracts/access/AccessControl.sol",
+      },
+    },
+    InspChainA4: {
+      address: "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_admin",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_inspector",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "_inspectTarget",
+              type: "string",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "approvedBy",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "inspectionIndex",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "comment",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "enum InspChainA4.JudgeState",
+              name: "state",
+              type: "uint8",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "InspectionJudged",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "submittedBy",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "inspectionType",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "inspectionDetail",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "statusMessage",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "InspectionSubmitted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "previousAdminRole",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "newAdminRole",
+              type: "bytes32",
+            },
+          ],
+          name: "RoleAdminChanged",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleGranted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleRevoked",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "ADMIN_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "DEFAULT_ADMIN_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "INSPECTOR_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "addAdmin",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "addInspector",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAllInspections",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "inspector",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "inspectionType",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "inspectionDetail",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "inspectionStatusMessage",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "timestamp",
+                  type: "uint256",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "timestamp",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "string",
+                      name: "comment",
+                      type: "string",
+                    },
+                    {
+                      internalType: "enum InspChainA4.JudgeState",
+                      name: "state",
+                      type: "uint8",
+                    },
+                  ],
+                  internalType: "struct InspChainA4.JudgeHistory",
+                  name: "judgeHistory",
+                  type: "tuple",
+                },
+              ],
+              internalType: "struct InspChainA4.InspectionHistory[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_index",
+              type: "uint256",
+            },
+          ],
+          name: "getInspection",
+          outputs: [
+            {
+              internalType: "address",
+              name: "inspector",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "inspectionType",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inspectionDetails",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inspectionStatusMessage",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "judgeTimestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "judgeComment",
+              type: "string",
+            },
+            {
+              internalType: "enum InspChainA4.JudgeState",
+              name: "state",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getInspectionCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+          ],
+          name: "getRoleAdmin",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "grantRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "hasRole",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "inspectTarget",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "inspectionHistories",
+          outputs: [
+            {
+              internalType: "address",
+              name: "inspector",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "inspectionType",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inspectionDetail",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inspectionStatusMessage",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "timestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "comment",
+                  type: "string",
+                },
+                {
+                  internalType: "enum InspChainA4.JudgeState",
+                  name: "state",
+                  type: "uint8",
+                },
+              ],
+              internalType: "struct InspChainA4.JudgeHistory",
+              name: "judgeHistory",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_inspectionIndex",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "_comment",
+              type: "string",
+            },
+            {
+              internalType: "enum InspChainA4.JudgeState",
+              name: "_state",
+              type: "uint8",
+            },
+          ],
+          name: "judgeInspection",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "removeAdmin",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "removeInspector",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "renounceRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "revokeRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_inspectionType",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_detail",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_statusMessage",
+              type: "string",
+            },
+          ],
+          name: "submitInspection",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes4",
+              name: "interfaceId",
+              type: "bytes4",
+            },
+          ],
+          name: "supportsInterface",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        DEFAULT_ADMIN_ROLE: "@openzeppelin/contracts/access/AccessControl.sol",
+        getRoleAdmin: "@openzeppelin/contracts/access/AccessControl.sol",
+        grantRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        hasRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        renounceRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        revokeRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        supportsInterface: "@openzeppelin/contracts/access/AccessControl.sol",
+      },
+    },
+    InspChainA5: {
+      address: "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_admin",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_inspector",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "_inspectTarget",
+              type: "string",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "approvedBy",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "inspectionIndex",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "comment",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "enum InspChainA5.JudgeState",
+              name: "state",
+              type: "uint8",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "InspectionJudged",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "submittedBy",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "inspectionType",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "inspectionDetail",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "statusMessage",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "InspectionSubmitted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "previousAdminRole",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "newAdminRole",
+              type: "bytes32",
+            },
+          ],
+          name: "RoleAdminChanged",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleGranted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleRevoked",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "ADMIN_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "DEFAULT_ADMIN_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "INSPECTOR_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "addAdmin",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "addInspector",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAllInspections",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "inspector",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "inspectionType",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "inspectionDetail",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "inspectionStatusMessage",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "timestamp",
+                  type: "uint256",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "timestamp",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "string",
+                      name: "comment",
+                      type: "string",
+                    },
+                    {
+                      internalType: "enum InspChainA5.JudgeState",
+                      name: "state",
+                      type: "uint8",
+                    },
+                  ],
+                  internalType: "struct InspChainA5.JudgeHistory",
+                  name: "judgeHistory",
+                  type: "tuple",
+                },
+              ],
+              internalType: "struct InspChainA5.InspectionHistory[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_index",
+              type: "uint256",
+            },
+          ],
+          name: "getInspection",
+          outputs: [
+            {
+              internalType: "address",
+              name: "inspector",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "inspectionType",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inspectionDetails",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inspectionStatusMessage",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "judgeTimestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "judgeComment",
+              type: "string",
+            },
+            {
+              internalType: "enum InspChainA5.JudgeState",
+              name: "state",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getInspectionCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+          ],
+          name: "getRoleAdmin",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "grantRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "hasRole",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "inspectTarget",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "inspectionHistories",
+          outputs: [
+            {
+              internalType: "address",
+              name: "inspector",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "inspectionType",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inspectionDetail",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "inspectionStatusMessage",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "timestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "comment",
+                  type: "string",
+                },
+                {
+                  internalType: "enum InspChainA5.JudgeState",
+                  name: "state",
+                  type: "uint8",
+                },
+              ],
+              internalType: "struct InspChainA5.JudgeHistory",
+              name: "judgeHistory",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_inspectionIndex",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "_comment",
+              type: "string",
+            },
+            {
+              internalType: "enum InspChainA5.JudgeState",
               name: "_state",
               type: "uint8",
             },
