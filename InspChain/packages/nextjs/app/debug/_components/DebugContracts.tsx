@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { UserRole } from "../../../../hardhat/constants/UserRole";
 import { useLocalStorage } from "usehooks-ts";
+import { useAccount } from "wagmi";
 import { BarsArrowUpIcon } from "@heroicons/react/20/solid";
 import { ContractUI } from "~~/app/debug/_components/contract";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
@@ -18,21 +20,54 @@ export function DebugContracts() {
     { initializeWithValue: false },
   );
 
+  const { address: loginAddress } = useAccount();
+  const [filteredContractNames, setFilteredContractNames] = useState<ContractName[]>([]);
+
   useEffect(() => {
-    if (!contractNames.includes(selectedContract)) {
-      setSelectedContract(contractNames[0]);
+    async function fetchFilteredContracts() {
+      if (loginAddress) {
+        const filteredContracts: ContractName[] = [];
+        await Promise.all(
+          contractNames.map(async contractName => {
+            const roleAddresses = UserRole[contractName];
+            if (roleAddresses) {
+              const isAdmin = roleAddresses.admin === loginAddress;
+              const isInspector = roleAddresses.inspector === loginAddress;
+
+              if (isAdmin || isInspector) {
+                filteredContracts.push(contractName);
+              }
+            }
+          }),
+        );
+        setFilteredContractNames(filteredContracts);
+        // Ensure selectedContract is in the filtered list
+        if (!filteredContracts.includes(selectedContract)) {
+          setSelectedContract(filteredContracts[0] || null);
+        }
+      } else {
+        setFilteredContractNames([]);
+      }
     }
-  }, [selectedContract, setSelectedContract]);
+
+    fetchFilteredContracts();
+  }, [loginAddress, selectedContract, setSelectedContract]);
+
+  useEffect(() => {
+    if (!filteredContractNames.includes(selectedContract)) {
+      setSelectedContract(filteredContractNames[0] || null);
+    }
+  }, [filteredContractNames, selectedContract, setSelectedContract]);
 
   return (
     <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-center items-center">
-      {contractNames.length === 0 ? (
+      {filteredContractNames.length === 0 ? (
         <p className="text-3xl mt-14">No contracts found!</p>
       ) : (
         <>
-          {contractNames.length > 1 && (
+          {filteredContractNames.length > 1 && (
             <div className="flex flex-row gap-2 w-full max-w-7xl pb-1 px-6 lg:px-10 flex-wrap">
-              {contractNames.map(contractName => (
+              {filteredContractNames.map(contractName => (
                 <button
                   className={`btn btn-secondary btn-sm font-light hover:border-transparent ${
                     contractName === selectedContract
@@ -52,7 +87,7 @@ export function DebugContracts() {
               ))}
             </div>
           )}
-          {contractNames.map(contractName => (
+          {filteredContractNames.map(contractName => (
             <ContractUI
               key={contractName}
               contractName={contractName}
