@@ -19,7 +19,7 @@ type KHJDisplayVariableProps = {
   abi: Abi;
 };
 
-export const KHJDisplayVariable = ({
+export const DisplayVariable = ({
   contractAddress,
   abiFunction,
   refreshDisplayVariables,

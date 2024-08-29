@@ -41,7 +41,7 @@ export const menuLinks: HeaderMenuLink[] = [
     icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
   {
-    label: "권한",
+    label: "Permission Setting",
     href: "/grant",
     icon: <MagnifyingGlassIcon className="h-4 w-4" />,
   },
