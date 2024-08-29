@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 
-contract InspChain is AccessControl {
+contract InspChainA3 is AccessControl {
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
     bytes32 public constant INSPECTOR_ROLE = keccak256("INSPECTOR_ROLE");
     string public inspectTarget;
@@ -48,7 +48,7 @@ contract InspChain is AccessControl {
         require(_admin != address(0) && _inspector != address(0), "Invalid address");
 
         // Assign default admin role to the deployer
-        //_setupRole(DEFAULT_ADMIN_ROLE, _admin);
+        _setupRole(DEFAULT_ADMIN_ROLE, _admin);
 
         // Setup roles
         _setupRole(ADMIN_ROLE, _admin);
@@ -56,7 +56,7 @@ contract InspChain is AccessControl {
 
         // Set role admins
         _setRoleAdmin(INSPECTOR_ROLE, ADMIN_ROLE);
-        _setRoleAdmin(ADMIN_ROLE, ADMIN_ROLE);
+        _setRoleAdmin(ADMIN_ROLE, DEFAULT_ADMIN_ROLE);
 
         inspectTarget = _inspectTarget;
     }
@@ -174,16 +174,5 @@ contract InspChain is AccessControl {
 
     function removeAdmin(address account) external onlyAdmin {
         revokeRole(ADMIN_ROLE, account);
-    }
-        // Function to get details of all inspections
-    function getAllInspections() external view returns (
-        InspectionHistory[] memory
-    ) {
-        // Ensure that only admin or inspector can access this function
-        // require(
-        //     hasRole(ADMIN_ROLE, msg.sender) || hasRole(INSPECTOR_ROLE, msg.sender),
-        //     "Not authorized"
-        // );
-        return inspectionHistories;
     }
 }

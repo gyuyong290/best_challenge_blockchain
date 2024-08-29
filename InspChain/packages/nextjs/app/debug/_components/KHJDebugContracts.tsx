@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { BarsArrowUpIcon } from "@heroicons/react/20/solid";
-import { ContractUI } from "~~/app/debug/_components/contract";
+import { KHJContractUI } from "~~/app/debug/_components/contract";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 import { getAllContracts } from "~~/utils/scaffold-eth/contractsData";
 
@@ -11,7 +11,11 @@ const selectedContractStorageKey = "scaffoldEth2.selectedContract";
 const contractsData = getAllContracts();
 const contractNames = Object.keys(contractsData) as ContractName[];
 
-export function DebugContracts() {
+type DebugContractsProps = {
+  filterKeyword?: string; // 필터링 키워드를 받는 props
+};
+
+export function KHJDebugContracts({ filterKeyword }: DebugContractsProps) {
   const [selectedContract, setSelectedContract] = useLocalStorage<ContractName>(
     selectedContractStorageKey,
     contractNames[0],
@@ -53,10 +57,11 @@ export function DebugContracts() {
             </div>
           )}
           {contractNames.map(contractName => (
-            <ContractUI
+            <KHJContractUI
               key={contractName}
               contractName={contractName}
               className={contractName === selectedContract ? "" : "hidden"}
+              filterKeyword={filterKeyword}
             />
           ))}
         </>
