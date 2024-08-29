@@ -20,7 +20,7 @@ export const ContractReadMethods = ({ deployedContractData,
     .filter(fn => {
       const isQueryableWithParams =
         (fn.stateMutability === "view" || fn.stateMutability === "pure") && fn.inputs.length > 0;
-      const matchesFilter = !filterKeyword || fn.name.toLowerCase().includes(filterKeyword.toLowerCase());
+      const matchesFilter = !filterKeyword || !fn.name.toLowerCase().includes(filterKeyword.toLowerCase());
       return (isQueryableWithParams && matchesFilter);
     })
     .map(fn => {

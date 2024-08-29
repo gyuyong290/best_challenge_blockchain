@@ -20,7 +20,7 @@ export const ContractWriteMethods = ({
   )
     .filter(fn => {
       const isWriteableFunction = fn.stateMutability !== "view" && fn.stateMutability !== "pure";
-      const matchesFilter = !filterKeyword || fn.name.toLowerCase().includes(filterKeyword.toLowerCase());
+      const matchesFilter = !filterKeyword || !fn.name.toLowerCase().includes(filterKeyword.toLowerCase());
       return isWriteableFunction && matchesFilter;
     })
     .map(fn => {
