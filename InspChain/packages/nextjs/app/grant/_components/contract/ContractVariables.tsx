@@ -1,8 +1,8 @@
-import { KHJDisplayVariable } from "./KHJDisplayVariable";
+import { DisplayVariable } from "./DisplayVariable";
 import { Abi, AbiFunction } from "abitype";
 import { Contract, ContractName, GenericContract, InheritedFunctions } from "~~/utils/scaffold-eth/contract";
 
-export const KHJContractVariables = ({
+export const ContractVariables = ({
   refreshDisplayVariables,
   deployedContractData,
   filterKeywords = [], // default to an empty array if no filterKeywords are provided
@@ -22,9 +22,9 @@ export const KHJContractVariables = ({
       const isQueryableWithNoParams =
         (fn.stateMutability === "view" || fn.stateMutability === "pure") && fn.inputs.length === 0;
       const isNotDefaultAdminRole = fn.name !== "DEFAULT_ADMIN_ROLE"; // DEFAULT_ADMIN_ROLE 필터링
-      const matchesFilter = filterKeywords.length === 0 || filterKeywords.some(keyword =>
-        fn.name.toLowerCase().includes(keyword.toLowerCase())
-      );      
+      const matchesFilter =
+        filterKeywords.length === 0 ||
+        filterKeywords.some(keyword => fn.name.toLowerCase().includes(keyword.toLowerCase()));
       return isQueryableWithNoParams && isNotDefaultAdminRole && matchesFilter;
     })
     .map(fn => {
@@ -42,7 +42,7 @@ export const KHJContractVariables = ({
   return (
     <>
       {functionsToDisplay.map(({ fn, inheritedFrom }) => (
-        <KHJDisplayVariable
+        <DisplayVariable
           abi={deployedContractData.abi as Abi}
           abiFunction={fn}
           contractAddress={deployedContractData.address}

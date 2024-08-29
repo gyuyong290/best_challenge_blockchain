@@ -2,11 +2,12 @@
 
 // @refresh reset
 import { useReducer } from "react";
-import { KHJContractReadMethods } from "./KHJContractReadMethods";
-import { KHJContractVariables } from "./KHJContractVariables";
-import { KHJContractWriteMethods } from "./KHJContractWriteMethods";
+import { ContractReadMethods } from "./ContractReadMethods";
+import { ContractVariables } from "./ContractVariables";
+import { ContractWriteMethods } from "./ContractWriteMethods";
 import { Address } from "~~/components/scaffold-eth";
-import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
+import { useDeployedContractInfo } from "~~/hooks/scaffold-eth";
+// import { useNetworkColor } from "~~/hooks/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 
@@ -19,11 +20,11 @@ type ContractUIProps = {
 /**
  * UI component to interface with deployed contracts.
  **/
-export const KHJContractUI = ({ contractName, className, filterKeyword = "" }: ContractUIProps) => {
+export const ContractUI = ({ contractName, className, filterKeyword = "" }: ContractUIProps) => {
   const [refreshDisplayVariables, triggerRefreshDisplayVariables] = useReducer(value => !value, false);
   const { targetNetwork } = useTargetNetwork();
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
-  const networkColor = useNetworkColor();
+  // const networkColor = useNetworkColor();
 
   if (deployedContractLoading) {
     return (
@@ -54,10 +55,10 @@ export const KHJContractUI = ({ contractName, className, filterKeyword = "" }: C
             </div>
           </div>
           <div className="bg-base-300 rounded-3xl px-6 lg:px-8 py-4 shadow-lg shadow-base-300">
-            <KHJContractVariables
+            <ContractVariables
               refreshDisplayVariables={refreshDisplayVariables}
               deployedContractData={deployedContractData}
-              filterKeywords={["ADMIN_ROLE","INSPECTOR_ROLE","inspectTarget"]}
+              filterKeywords={["ADMIN_ROLE", "INSPECTOR_ROLE", "inspectTarget"]}
             />
           </div>
         </div>
@@ -70,7 +71,7 @@ export const KHJContractUI = ({ contractName, className, filterKeyword = "" }: C
                 </div>
               </div>
               <div className="p-5 divide-y divide-base-300">
-                <KHJContractReadMethods deployedContractData={deployedContractData} filterKeyword={filterKeyword} />
+                <ContractReadMethods deployedContractData={deployedContractData} filterKeyword={filterKeyword} />
               </div>
             </div>
           </div>
@@ -82,7 +83,7 @@ export const KHJContractUI = ({ contractName, className, filterKeyword = "" }: C
                 </div>
               </div>
               <div className="p-5 divide-y divide-base-300">
-                <KHJContractWriteMethods
+                <ContractWriteMethods
                   deployedContractData={deployedContractData}
                   filterKeyword={filterKeyword}
                   onChange={triggerRefreshDisplayVariables}
