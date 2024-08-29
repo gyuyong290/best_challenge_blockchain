@@ -3,7 +3,7 @@ import { DeployFunction } from "hardhat-deploy/types";
 import { Contract } from "ethers";
 import { UserRole } from "../constants/UserRole";
 
-const contract = "InspChain";
+const contract = "InspChainA1";
 
 const deployInspChain: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer } = await hre.getNamedAccounts();
