@@ -72,6 +72,7 @@ export const ContractTabs = ({ address, contractData }: PageProps) => {
           </button>
         </div>
       )}
+      {/* 여기에서 컨트랙트 */}
       {activeTab === "transactions" && (
         <div className="pt-4">
           <TransactionsTable blocks={filteredBlocks} transactionReceipts={transactionReceipts} />

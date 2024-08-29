@@ -2,12 +2,18 @@
 
 import Link from "next/link";
 import type { NextPage } from "next";
-import { useAccount } from "wagmi";
-import { CheckCircleIcon, ClipboardDocumentListIcon, ShieldCheckIcon, PuzzlePieceIcon} from "@heroicons/react/24/outline";
-import { Address } from "~~/components/scaffold-eth";
+// import { useAccount } from "wagmi";
+import {
+  CheckCircleIcon,
+  ClipboardDocumentListIcon,
+  PuzzlePieceIcon,
+  ShieldCheckIcon,
+} from "@heroicons/react/24/outline";
+
+// import { Address } from "~~/components/scaffold-eth";
 
 const Home: NextPage = () => {
-  const { address: connectedAddress } = useAccount();
+  // const { address: connectedAddress } = useAccount();
 
   return (
     <>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { User } from "../../../../../constants/User";
+import { User } from "../../../../../constants/GlobalConstants";
 import { Abi, AbiFunction } from "abitype";
 import { Address, TransactionReceipt } from "viem";
 import { useAccount, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
