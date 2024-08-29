@@ -1,5 +1,5 @@
 import { Abi, AbiFunction } from "abitype";
-import { ReadOnlyFunctionForm } from "~~/app/debug/_components/contract";
+import { KHJReadOnlyFunctionForm } from "~~/app/debug/_components/contract";
 import { Contract, ContractName, GenericContract, InheritedFunctions } from "~~/utils/scaffold-eth/contract";
 
 type ContractReadMethodsProps = {
@@ -21,7 +21,8 @@ export const KHJContractReadMethods = ({ deployedContractData,
       const isQueryableWithParams =
         (fn.stateMutability === "view" || fn.stateMutability === "pure") && fn.inputs.length > 0;
       const matchesFilter = !filterKeyword || fn.name.toLowerCase().includes(filterKeyword.toLowerCase());
-      return (isQueryableWithParams && matchesFilter);
+      const isgetroleadmin = fn.name !== "getRoleAdmin"; // renounceRole 필터링
+      return (isQueryableWithParams && matchesFilter && isgetroleadmin);
     })
     .map(fn => {
       return {
@@ -38,7 +39,9 @@ export const KHJContractReadMethods = ({ deployedContractData,
   return (
     <>
       {functionsToDisplay.map(({ fn, inheritedFrom }) => (
-        <ReadOnlyFunctionForm
+        console.log(fn.name),
+        console.log(fn),
+        <KHJReadOnlyFunctionForm
           abi={deployedContractData.abi as Abi}
           contractAddress={deployedContractData.address}
           abiFunction={fn}

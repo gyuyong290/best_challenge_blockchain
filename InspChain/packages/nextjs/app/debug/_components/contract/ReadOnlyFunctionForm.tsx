@@ -94,7 +94,7 @@ export const ReadOnlyFunctionForm = ({
           disabled={isFetching}
         >
           {isFetching && <span className="loading loading-spinner loading-xs"></span>}
-          Read 📡
+          실행 🚀
         </button>
       </div>
     </div>

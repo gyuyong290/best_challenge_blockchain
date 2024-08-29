@@ -1,5 +1,5 @@
 import { Abi, AbiFunction } from "abitype";
-import { WriteOnlyFunctionForm } from "~~/app/debug/_components/contract";
+import { KHJWriteOnlyFunctionForm } from "~~/app/debug/_components/contract";
 import { Contract, ContractName, GenericContract, InheritedFunctions } from "~~/utils/scaffold-eth/contract";
 
 export const KHJContractWriteMethods = ({
@@ -21,7 +21,8 @@ export const KHJContractWriteMethods = ({
     .filter(fn => {
       const isWriteableFunction = fn.stateMutability !== "view" && fn.stateMutability !== "pure";
       const matchesFilter = !filterKeyword || fn.name.toLowerCase().includes(filterKeyword.toLowerCase());
-      return isWriteableFunction && matchesFilter;
+      const isNotRenoune = fn.name !== "renounceRole"; // renounceRole 필터링
+      return isWriteableFunction && matchesFilter && isNotRenoune;
     })
     .map(fn => {
       return {
@@ -38,7 +39,7 @@ export const KHJContractWriteMethods = ({
   return (
     <>
       {functionsToDisplay.map(({ fn, inheritedFrom }, idx) => (
-        <WriteOnlyFunctionForm
+        <KHJWriteOnlyFunctionForm
           abi={deployedContractData.abi as Abi}
           key={`${fn.name}-${idx}}`}
           abiFunction={fn}

@@ -3,7 +3,7 @@
 // @refresh reset
 import { useReducer } from "react";
 import { KHJContractReadMethods } from "./KHJContractReadMethods";
-import { ContractVariables } from "./ContractVariables";
+import { KHJContractVariables } from "./KHJContractVariables";
 import { KHJContractWriteMethods } from "./KHJContractWriteMethods";
 import { Address } from "~~/components/scaffold-eth";
 import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
@@ -54,9 +54,10 @@ export const KHJContractUI = ({ contractName, className, filterKeyword = "" }: C
             </div>
           </div>
           <div className="bg-base-300 rounded-3xl px-6 lg:px-8 py-4 shadow-lg shadow-base-300">
-            <ContractVariables
+            <KHJContractVariables
               refreshDisplayVariables={refreshDisplayVariables}
               deployedContractData={deployedContractData}
+              filterKeywords={["ADMIN_ROLE","INSPECTOR_ROLE","inspectTarget"]}
             />
           </div>
         </div>
@@ -65,7 +66,7 @@ export const KHJContractUI = ({ contractName, className, filterKeyword = "" }: C
             <div className="bg-base-100 rounded-3xl shadow-md shadow-secondary border border-base-300 flex flex-col mt-10 relative">
               <div className="h-[5rem] w-[5.5rem] bg-base-300 absolute self-start rounded-[22px] -top-[38px] -left-[1px] -z-10 py-[0.65rem] shadow-lg shadow-base-300">
                 <div className="flex items-center justify-center space-x-2">
-                  <p className="my-0 text-sm">Read</p>
+                  <p className="my-0 text-sm">👤권한확인</p>
                 </div>
               </div>
               <div className="p-5 divide-y divide-base-300">
@@ -77,7 +78,7 @@ export const KHJContractUI = ({ contractName, className, filterKeyword = "" }: C
             <div className="bg-base-100 rounded-3xl shadow-md shadow-secondary border border-base-300 flex flex-col mt-10 relative">
               <div className="h-[5rem] w-[5.5rem] bg-base-300 absolute self-start rounded-[22px] -top-[38px] -left-[1px] -z-10 py-[0.65rem] shadow-lg shadow-base-300">
                 <div className="flex items-center justify-center space-x-2">
-                  <p className="my-0 text-sm">Write</p>
+                  <p className="my-0 text-sm">👤권한제어</p>
                 </div>
               </div>
               <div className="p-5 divide-y divide-base-300">
