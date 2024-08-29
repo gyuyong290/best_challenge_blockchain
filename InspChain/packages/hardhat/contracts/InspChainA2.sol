@@ -152,6 +152,13 @@ contract InspChainA2 is AccessControl {
         );
     }
 
+    // Function to get details of all inspections
+    function getAllInspections() external view returns (
+        InspectionHistory[] memory
+    ) {
+        return inspectionHistories;
+    }
+
     // Functions to manage roles
     function addInspector(address account) external onlyAdmin {
         grantRole(INSPECTOR_ROLE, account);
